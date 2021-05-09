@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<link rel="stylesheet" href="/css/horario.css">
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui.min.css" />
+
+</head>
+	
+
+<body>
+
+<header th:replace="layout/layout :: header"></header>
+
+	<div id="inicio" class="container">
+		
+		<h3 class="text-center text-secondary">Reservas Ticket</h3>
+	</div>
+
+<div class="container teal lighten-5" id="contenedor">
+	<form th:action="@{/reservasTicket}" th:object="${solicitud}" method="post">
+		<div class="row " id="calendario">
+						<div class="container py-4 col-12">
+						<p id="clicar2"class="text-center"><a id="cargarmesanterior" href="#"  class=" btn btn-primary  active"> < </a><span>Mes</span> <span id="mesactual" ></span> <a id="cargar" href="#"  class=" btn btn-primary  active">></a></p>
+						<p id="meses"class="text-center"></p>
+					</div>
+			<div class="col-5">
+				
+				<h5>Ingresa la fecha de los ticket</h5>
+				<input th:field="*{fecha}" type="text" id="fecha" placeholder="yyyy-mm-dd">
+				<input th:field="*{tipo_dia}" type="hidden" id="tipodia">
+				
+			</div>
+			<div class="col-2 ">
+			</div>
+			<div class="col-5 ">
+
+					<div class="container">
+							<div class="row justify-content-center">
+									<table 	class="table-sm table-bordered table-striped small ">
+										
+										<thead>
+											<tr>
+												<th>Lunes</th>
+												<th>Martes</th>
+												<th>Miércoles</th>
+												<th>Jueves</th>
+												<th>Viernes</th>
+												<th>Sábado</th>
+												<th>Domingo</th>
+											</tr>
+										</thead>
+										<tbody id="cuerpotablaactulizar">
+										</tbody>
+										
+									</table>
+							</div>
+					</div>
+			</div>
+	</div>
+	
+	<div class="row py-4"  id="paginacion">
+							
+			<div class="col align-self-start"><a class="btn btn-danger" id="back">Atrás</a></div>
+			<div class="col align-self-end" ><input type="submit" class="btn btn-success" value="Siguiente" id="next"></div>
+			
+	</div>
+	</form>
+</div>
+	
+
+
+
+
+			<script th:replace="funcionalidad/js/horariojs :: javascript_bus"></script>
+
+</body>
+
+
+</html>

@@ -1,0 +1,42 @@
+.estilocelda:hover {
+  background-color: #0080FF;
+  color: #FFFFFF;
+
+}
+.reservado {
+
+    color: #FFFFFF;
+    font-weight: bold;
+    background-color: #FA5882;
+    
+}
+
+.Blanco{
+
+    	color: rgb(0, 0, 0);
+    	font-weight: bold;
+    	background-color: #FFFFFF;
+    	pointer-events: none;
+    	
+
+}
+
+.verde{
+
+    	color: rgb(0, 0, 0);
+    	font-weight: bold;
+    	background-color: #2EFE9A;
+    	
+}
+
+.cian{
+    	color: rgb(0, 0, 0);
+    	font-weight: bold;
+    	background-color: #00ffff;
+}
+
+.amarillo{
+    	color: rgb(0, 0, 0);
+    	font-weight: bold;
+    	background-color: #ffff80;
+}

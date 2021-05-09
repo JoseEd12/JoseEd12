@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<head>
+
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui.min.css" />
+</head>
+	
+
+<body>
+
+    <header th:replace="layout/layout :: header"></header>
+
+	<div id="inicio" class="container">
+		
+		<h3 class="text-center text-secondary">Reservas Ticket</h3>
+	</div>
+
+<div class="container teal lighten-5" id="contenedor">
+	
+	 		<table id="resumen" class="table table-striped table-bordered">
+
+				<thead class="thead-inverse">
+					<tr>
+						<th>codigo</th>
+						<th>descriptcion</th>
+						<th>origen</th>
+						<th>punto salida</th>
+						<th>punto de regreso</th>
+						<th>Descuento</th>
+						<th>visitante</th>
+						<th>numero</th>
+					<tr>
+					</thead>
+					  <tbody id="tablaresumen">
+						<tr th:each="producto: ${productos}">
+							<td th:text="${producto.COD_PROD}"></td>
+							<td th:text="${producto.DES_PROD}"></td>
+							<td th:text="${producto.ORIGEN}"></td>
+							<td th:text="${producto.PUNTO_SALIDA}"></td>
+							<td th:text="${producto.PUNTO_REGRESO}"></td>
+							<td th:text="${producto.DESCUENTO}"></td>
+							<td th:text="${producto.VISITANTE}"></td>
+							<td th:text="${producto.VISITANTE == 'ADULTO'} ? ${adulto} : ${infantil}"></td>
+							
+						</tr>
+					</tbody> 
+				</table>
+	
+	
+	
+</div>
+	
+
+
+</body>
+
+
+</html>

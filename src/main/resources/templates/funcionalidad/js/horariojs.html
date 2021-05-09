@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+
+
+	<script type="text/javascript" th:fragment="javascript_bus">
+	  var meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+		var mesvuelta =  new Date().getMonth();
+		var añoactual = new Date().getFullYear();
+		var añossumados=añoactual;
+		  $('#cargar').click(function (e) {
+			  mesvuelta++;		
+			  if (mesvuelta > 11){
+				  mesvuelta=0;
+				  añossumados++;
+			  }
+			  $("#meses").empty();
+			  $("#meses").append("<span>"+meses[mesvuelta]+"</span>");
+		  });
+		  $('#cargarmesanterior').click(function (e) {
+			  mesvuelta--;
+			  $("#meses").empty();
+			  $("#meses").append("<span>"+meses[mesvuelta]+"</span>");
+			  if (mesvuelta < 0){
+				  mesvuelta=11;
+				  añossumados--;
+			  }
+			  $("#meses").empty();
+			  $("#meses").append("<span>"+meses[mesvuelta]+"</span>");
+		  });
+		  
+	$(document).ready(function(){
+		
+		 var contador_click=0;
+	
+		 $('#formulario').hide();
+		 $('#cargarmesanterior').hide(); 
+		 $("span").filter(function() { //quitar solo los 0 sin quitar los 10 o 20
+		       return $(this).text() === "0";
+		}).empty();
+		 $("td").addClass("estilocelda");
+		 
+		 $("#meses").append("<span>"+meses[mesvuelta]+"</span>");
+		 $("#mesactual").hide();
+		 
+			var www = '/horario/cargar/'+contador_click;
+	   		//alert(www);
+		    $.ajax({	    	
+		    	url: www,	    	
+		    	dataType : "json",
+		    	success: function(respuesta) {
+	   		var troriginal=$('#cuerpotabla');
+		    		troriginal.empty();
+
+	  		 	var tabla = $("#cuerpotablaactulizar");
+	  		 	tabla.empty();
+					$.each(respuesta, function(index, elemento) {
+						tabla.append('<tr id="troriginal" height="75" witdh="75"></tr>'); 
+						var tr = $("tr:last");
+						$.map(elemento.pos0,function( key, val ){
+							tr.append('<td class="small '+key+'" ><span>'+val+'</span><br><span class="text-center "></span></td>'); 
+						});
+						$.map(elemento.pos1,function( key, val ){
+							tr.append('<td class="small '+key+'" ><span>'+val+'</span><br><span class="text-center"></span></td>'); 
+						});
+						$.map(elemento.pos2,function( key, val ){
+							tr.append('<td class="small '+key+'" ><span>'+val+'</span><br><span class="text-center"></span></td>'); 
+						});
+						$.map(elemento.pos3,function( key, val ){
+							tr.append('<td class="small '+key+'" ><span>'+val+'</span><br><span class="text-center"></span></td>'); 
+						});
+						$.map(elemento.pos4,function( key, val ){
+							tr.append('<td class="small '+key+'" ><span>'+val+'</span><br><span class="text-center"></span></td>'); 
+						});
+						$.map(elemento.pos5,function( key, val ){
+							tr.append('<td class="small '+key+'" ><span>'+val+'</span><br><span class="text-center"></span></td>'); 
+						});
+						$.map(elemento.pos6,function( key, val ){
+							tr.append('<td class=" small '+key+'" ><span>'+val+'</span><br><span class="text-center"></span></td>'); 
+						});
+						
+	  			 	});
+				$("span").filter(function() { //quitar solo los 0 sin quitar los 10 o 20
+					  return $(this).text() === "0";
+				}).empty();
+					 
+				
+				$("td").addClass("estilocelda"); 
+				 $('td').click(function() {
+					 var color=$('span:last', this).text().trim();
+					 var dia=$('span:first', this).text().trim();
+					 var mesNatural=mesvuelta+1;
+					 var mesinput='';
+					 var diainput='';
+					 if(mesNatural.toString().length < 2){
+						 mesinput='0'+mesNatural.toString();
+					 }else{
+						 mesinput=mesNatural.toString();
+					 }
+					 
+					 if(dia.toString().length < 2){
+						 diainput='0'+dia.toString();
+					 }else{
+						 diainput=dia.toString();
+					 }
+					 
+					 $('#fecha').val(añossumados + "-" + mesinput + "-" + diainput);
+					 if( $(this).hasClass("cian")){
+						 $('#tipodia').val('cian');
+					 }
+					 if( $(this).hasClass("verde")){
+						 $('#tipodia').val('verde');
+					 }
+					 if( $(this).hasClass("amarillo")){
+						 $('#tipodia').val('amarillo');
+					 }
+				 });
+		    	},
+		    	error: function() {
+		            alert("No se ha podido obtener la información");
+		        }
+		    });//ajax
+		 
+
+		    
+		    
+		 $('#cargar').click(function (e) {
+			 $('#cargarmesanterior').show();
+			 $('#formulario').hide();
+			 contador_click++;	
+	   		//alert("contador "+contador_click);
+	   	var www = '/horario/cargar/'+contador_click;
+	   		//alert(www);
+		    $.ajax({	    	
+		    	url: www,	    	
+		    	dataType : "json",
+		    	success: function(respuesta) {
+	   		var troriginal=$('#cuerpotabla');
+		    		troriginal.empty();
+
+	  		 	var tabla = $("#cuerpotablaactulizar");
+	  		 	tabla.empty();
+					$.each(respuesta, function(index, elemento) {
+						tabla.append('<tr id="troriginal" height="75" witdh="75"></tr>'); 
+						var tr = $("tr:last");
+						$.map(elemento.pos0,function( key, val ){
+							tr.append('<td class="small '+key+'" ><span>'+val+'</span><br><span class="text-center "></span></td>'); 
+						});
+						$.map(elemento.pos1,function( key, val ){
+							tr.append('<td class="small '+key+'" ><span>'+val+'</span><br><span class="text-center"></span></td>'); 
+						});
+						$.map(elemento.pos2,function( key, val ){
+							tr.append('<td class="small '+key+'" ><span>'+val+'</span><br><span class="text-center"></span></td>'); 
+						});
+						$.map(elemento.pos3,function( key, val ){
+							tr.append('<td class="small '+key+'" ><span>'+val+'</span><br><span class="text-center"></span></td>'); 
+						});
+						$.map(elemento.pos4,function( key, val ){
+							tr.append('<td class="small '+key+'" ><span>'+val+'</span><br><span class="text-center"></span></td>'); 
+						});
+						$.map(elemento.pos5,function( key, val ){
+							tr.append('<td class="small '+key+'" ><span>'+val+'</span><br><span class="text-center"></span></td>'); 
+						});
+						$.map(elemento.pos6,function( key, val ){
+							tr.append('<td class=" small '+key+'" ><span>'+val+'</span><br><span class="text-center"></span></td>'); 
+						});
+	  			 	});
+				$("span").filter(function() { //quitar solo los 0 sin quitar los 10 o 20
+					  return $(this).text() === "0";
+				}).empty();
+					 
+				 $('td').click(function() {
+					 var color=$('span:last', this).text().trim();
+					 var dia=$('span:first', this).text().trim();
+					 var mesNatural=mesvuelta+1;
+					 var mesinput='';
+					 var diainput='';
+					 if(mesNatural.toString().length < 2){
+						 mesinput='0'+mesNatural.toString();
+					 }else{
+						 mesinput=mesNatural.toString();
+					 }
+					 
+					 if(dia.toString().length < 2){
+						 diainput='0'+dia.toString();
+					 }else{
+						 diainput=dia.toString();
+					 }
+					 
+					 $('#fecha').val(añossumados + "-" + mesinput + "-" + diainput);
+					 if( $(this).hasClass("cian")){
+						 $('#tipodia').val('cian');
+					 }
+					 if( $(this).hasClass("verde")){
+						 $('#tipodia').val('verde');
+					 }
+					 if( $(this).hasClass("amarillo")){
+						 $('#tipodia').val('amarillo');
+					 }
+				 });
+		    	},
+		    	error: function() {
+		            alert("No se ha podido obtener la información");
+		        }
+		    });//ajax
+		
+		   });//funcionclick
+		   
+		    $('#cargarmesanterior').click(function (e) {
+		    	$('#cargarmesanterior').show();
+			    contador_click--;	
+	   		//alert("contador "+contador_click);
+	   		var www = '/horario/cargar/'+contador_click;
+	   		//alert(www);
+		    $.ajax({	    	
+		    	url: www,    	
+		    	dataType : "json",
+		    	success: function(respuesta) {
+		    		var troriginal=$('#cuerpotabla');
+		    		troriginal.empty();
+	  		 var tabla = $("#cuerpotablaactulizar");
+	  		 tabla.empty();
+				$.each(respuesta, function(index, elemento) {
+					tabla.append('<tr id="troriginal" height="75" witdh="75"></tr>'); 
+					var tr = $("tr:last");
+					$.map(elemento.pos0,function( key, val ){
+						tr.append('<td class="small '+key+'" ><span>'+val+'</span><br><span class="text-center "></span></td>'); 
+					});
+					$.map(elemento.pos1,function( key, val ){
+						tr.append('<td class="small '+key+'" ><span>'+val+'</span><br><span class="text-center"></span></td>'); 
+					});
+					$.map(elemento.pos2,function( key, val ){
+						tr.append('<td class="small '+key+'" ><span>'+val+'</span><br><span class="text-center"></span></td>'); 
+					});
+					$.map(elemento.pos3,function( key, val ){
+						tr.append('<td class="small '+key+'" ><span>'+val+'</span><br><span class="text-center"></span></td>'); 
+					});
+					$.map(elemento.pos4,function( key, val ){
+						tr.append('<td class="small '+key+'" ><span>'+val+'</span><br><span class="text-center"></span></td>'); 
+					});
+					$.map(elemento.pos5,function( key, val ){
+						tr.append('<td class="small '+key+'" ><span>'+val+'</span><br><span class="text-center"></span></td>'); 
+					});
+					$.map(elemento.pos6,function( key, val ){
+						tr.append('<td class=" small '+key+'" ><span>'+val+'</span><br><span class="text-center"></span></td>'); 
+					});
+					
+				 	});
+				$("span").filter(function() { //quitar solo los 0 sin quitar los 10 o 20
+					  return $(this).text() === "0";
+				}).empty();
+				
+				 $('td').click(function() {
+					 var color=$('span:last', this).text().trim();
+					 var dia=$('span:first', this).text().trim();
+					 var mesNatural=mesvuelta+1;
+					 var mesinput='';
+					 var diainput='';
+					 if(mesNatural.toString().length < 2){
+						 mesinput='0'+mesNatural.toString();
+					 }else{
+						 mesinput=mesNatural.toString();
+					 }
+					 
+					 if(dia.toString().length < 2){
+						 diainput='0'+dia.toString();
+					 }else{
+						 diainput=dia.toString();
+					 }
+					 
+					 $('#fecha').val(añossumados + "-" + mesinput + "-" + diainput);
+					 if( $(this).hasClass("cian")){
+						 $('#tipodia').val('cian');
+					 }
+					 if( $(this).hasClass("verde")){
+						 $('#tipodia').val('verde');
+					 }
+					 if( $(this).hasClass("amarillo")){
+						 $('#tipodia').val('amarillo');
+					 }
+				
+				 });
+				 
+		    	},
+		    	error: function() {
+		            alert("No se ha podido obtener la información");
+		        }
+		    });//ajax
+			if(contador_click==0){
+				$('#cargarmesanterior').hide();
+			}
+
+		   });
+		   
+		   
+		  }); // si el documento esta preparado
+	</script>
+	
+
+	
+
+
+</body>
+</html>

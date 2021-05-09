@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:fragment="head">
+<meta charset="UTF-8" />
+<title th:text="${titulo}"></title>
+<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+<link rel="stylesheet" th:href="@{/css/jquery-ui.min.css}" />
+</head>
+<body>
+
+	<header th:fragment="header">
+		<nav class="navbar navbar-expand-md navbar-danger bg-danger">
+			<a class="navbar-brand text-white" >Depaseo</a>
+			<a class="navbar-brand text-white" th:href="@{/index}">Inicio</a>
+			<a class="navbar-brand text-white" th:href="@{/reservasTicket}">Entradas</a>
+
+
+
+		</nav>
+		<div class="alert alert-success" th:if="${success != null}" th:text="${success}"></div>
+		<div class="alert alert-danger" th:if="${error != null}" th:text="${error}"></div>
+		<div class="alert alert-warnig" th:if="${warning != null}" th:text="${warning}"></div>
+		<div class="alert alert-info" th:if="${info != null}" th:text="${info}"></div>
+	</header>
+
+
+	<footer th:fragment="footer">
+		<hr />
+		<img th:src="@{/images/informe.png}" alt="logo" />
+
+		<p sec:authorize="isAuthenticated()">
+			Usuario logueado: <span sec:authentication="name"></span> | Roles: <span
+				sec:authentication="principal.authorities"></span>
+		</p>
+
+
+
+		<p>Proyecto creado por Cristan García</p>
+		<script th:src="@{/js/jquery-3.3.1.min.js}"></script>
+		<script th:src="@{/js/popper.min.js}"></script>
+		<script th:src="@{/js/bootstrap.min.js}"></script>
+		<script th:src="@{/js/jquery-ui.min.js}"></script>
+	</footer>
+</body>
+</html>

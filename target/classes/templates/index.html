@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="layout/layout :: head"></head>
+<head>
+
+<link rel="stylesheet" type="text/css" href="/css/jquery-ui.min.css" />
+</head>
+
+<body>
+
+	<header th:replace="layout/layout :: header"></header>
+
+	<div  id="inicio" class="container">
+		<h1 class="text-center text-dark">Depaseo</h1>
+		<h3 class="text-center text-secondary">Api web de reservas de autobuses,hoteles,viajes</h3>
+	</div>
+
+
+	 		<table id="resumen" class="table table-striped table-bordered">
+
+				<thead class="thead-inverse">
+					<tr>
+						<th>codigo</th>
+						<th>descriptcion</th>
+						<th>origen</th>
+						<th>punto salida</th>
+						<th>punto de regreso</th>
+						<th>Descuento</th>
+						<th>visitante</th>
+					<tr>
+					</thead>
+					  <tbody id="tablaresumen">
+						<tr th:each="producto: ${productos}">
+							<td th:text="${producto.DES_PROD}"></td>
+							<td th:text="${producto.ORIGEN}"></td>
+							<td th:text="${producto.PUNTO_SALIDA}"></td>
+							<td th:text="${producto.PUNTO_REGRESO}"></td>
+							<td th:text="${producto.DESCUENTO}"></td>
+							<td th:text="${producto.VISITANTE}"></td>
+						</tr>
+					</tbody> 
+				</table>
+
+
+
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.ripples/0.5.3/jquery.ripples.min.js"></script>
+
+</body>
+<footer th:replace="layout/layout :: footer"></footer>
+
+</html>
